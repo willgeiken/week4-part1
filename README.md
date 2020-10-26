@@ -2,5 +2,5 @@
 
 Some Text!
 
-This is **bold** this is *italics
+This is **bold** this is *italics*
 
