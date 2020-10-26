@@ -1,0 +1,11 @@
+---
+title: "Week 4 Part 1 - CIs and T-tests"
+author: "Will Geiken"
+date: "10/26/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
