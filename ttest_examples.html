@@ -370,7 +370,66 @@ summary {
 </div>
 
 
+<div id="confidence-intervals" class="section level2">
+<h2>1. Confidence intervals</h2>
+<pre class="r"><code>otter_length &lt;- c(38, 41, 50, 27, 32, 41, 48, 60, 43)
+#assuming we looked at sample and feel a t-test is appropriate, then we use it
 
+t.test(otter_length)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  otter_length
+## t = 12.932, df = 8, p-value = 1.21e-06
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  34.69302 49.75142
+## sample estimates:
+## mean of x 
+##  42.22222</code></pre>
+<pre class="r"><code>#the base function of a t-test is comparing to a null hypothesis that the mean is equal to 0, so ignore p-value. We&#39;re just getting a CI</code></pre>
+</div>
+<div id="t-test-1-sample-t-test" class="section level2">
+<h2>T-test (1-sample t-test)</h2>
+<p>?t.test will show you how the function works in the help tab. Works for any function. We will change mu to dif settings (plus other changes)</p>
+<p>See a claim: mean otter length is 50 inches</p>
+<p>We have a sample, we decided its from a normally distributed blah blah</p>
+<pre class="r"><code>otter_test &lt;- t.test(x = otter_length, mu = 50)
+otter_test</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  otter_length
+## t = -2.3821, df = 8, p-value = 0.0444
+## alternative hypothesis: true mean is not equal to 50
+## 95 percent confidence interval:
+##  34.69302 49.75142
+## sample estimates:
+## mean of x 
+##  42.22222</code></pre>
+<p>p-value of 0.0444, means that if the pop mean really is 50, there is a 4.44% chance that we could have taken a sample with the mean at least as different as 42.222</p>
+</div>
+<div id="two-sample-t-test" class="section level2">
+<h2>Two-sample t-test</h2>
+<p>Are the differences in my two sample means so different that I think they are drawn from populations with different means.</p>
+<pre class="r"><code>desert_bighorns &lt;- c(32, 44, 18, 26, 50, 33, 42, 20)
+#we need to have a big enough sample to apply central limit theory, so we have to assume we think the data is normally distributed. Does a t-dist make sense. We assume so for this.
+sierra_bighorns &lt;- c(28, 31, 40, 42, 26, 29, 31)
+
+t.test(x = desert_bighorns, y = sierra_bighorns)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  desert_bighorns and sierra_bighorns
+## t = 0.14825, df = 10.913, p-value = 0.8849
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -9.653212 11.046069
+## sample estimates:
+## mean of x mean of y 
+##  33.12500  32.42857</code></pre>
+<pre class="r"><code>#p-value is how likely we could have drawn these samples from pops with the same mean. Low value, suggests maybe the pops were different. Lots of considerations though.</code></pre>
+</div>
 
 
 

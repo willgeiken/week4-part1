@@ -9,3 +9,43 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## 1. Confidence intervals
+
+```{r}
+otter_length <- c(38, 41, 50, 27, 32, 41, 48, 60, 43)
+#assuming we looked at sample and feel a t-test is appropriate, then we use it
+
+t.test(otter_length)
+#the base function of a t-test is comparing to a null hypothesis that the mean is equal to 0, so ignore p-value. We're just getting a CI
+```
+
+## T-test (1-sample t-test)
+
+?t.test will show you how the function works in the help tab. Works for any function. We will change mu to dif settings (plus other changes)
+
+See a claim: mean otter length is 50 inches
+
+We have a sample, we decided its from a normally distributed blah blah
+
+```{r}
+otter_test <- t.test(x = otter_length, mu = 50)
+otter_test
+```
+
+p-value of 0.0444, means that if the pop mean really is 50, there is a 4.44% chance that we could have taken a sample with the mean at least as different as 42.222
+
+## Two-sample t-test
+
+Are the differences in my two sample means so different that I think they are drawn from populations with different means.
+
+```{r}
+desert_bighorns <- c(32, 44, 18, 26, 50, 33, 42, 20)
+#we need to have a big enough sample to apply central limit theory, so we have to assume we think the data is normally distributed. Does a t-dist make sense. We assume so for this.
+sierra_bighorns <- c(28, 31, 40, 42, 26, 29, 31)
+
+t.test(x = desert_bighorns, y = sierra_bighorns)
+#p-value is how likely we could have drawn these samples from pops with the same mean. Low value, suggests maybe the pops were different. Lots of considerations though.
+```
+
+
+
