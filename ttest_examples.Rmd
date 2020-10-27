@@ -7,6 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
 ```
 
 ## 1. Confidence intervals
@@ -47,5 +49,59 @@ t.test(x = desert_bighorns, y = sierra_bighorns)
 #p-value is how likely we could have drawn these samples from pops with the same mean. Low value, suggests maybe the pops were different. Lots of considerations though.
 ```
 
+## Part 2: Two-sample t-test
 
+How different 
+
+```{r}
+compact_suv <- mpg %>% 
+  filter(class %in% c("compact", "suv"))
+```
+
+### Exploratory data visualization
+
+Exploratory histograms:
+
+```{r}
+ggplot(data = compact_suv, aes(x = cty)) +
+  geom_histogram(bins = 15) + #bins specified to help visualize, there are rules though
+  facet_wrap(~class) #groups the hist by compact and suv
+```
+
+### Q-Q plot
+
+Quantile - quantile plot, you want a linear relationship, closer you are is closer to a normally distributed data set. 
+
+```{r}
+ggplot(data = compact_suv, aes(sample = cty)) +
+  geom_qq() +
+  facet_wrap(~class) #they look close to linear, so because of the hists and the qq we think they're close to normally distributed
+```
+
+### Descriptive statistics
+
+```{r}
+car_stats <- compact_suv %>% 
+  group_by(class) %>% 
+  summarise(mean_city = mean(cty), 
+            sd_city = sd(cty),
+            n = n())
+```
+
+You should do all of these before considering a t-test. You also need to meet other assumptions (random, representative, etc.) Because we have met them, we think we can run a two sample t-test responsibly.
+
+### 2-sample t-test
+
+Create vectors containing observations for each sample. (city gas mileage)
+```{r}
+compact_sample <- compact_suv %>% 
+  filter(class == "compact") %>% 
+  pull(cty) #extracts data from a column and stores them as a vector, select would store it as a data frame and we need a vector
+
+suv_sample <- compact_suv %>% 
+  filter(class == "suv") %>% 
+  pull(cty)
+
+t.test(x = compact_sample, y = suv_sample)
+```
 
